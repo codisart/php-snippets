@@ -1,0 +1,17 @@
+name: "PHPUnit testing"
+run-name: ${{ github.actor }} is testing with phpunit
+
+on: [pull_request]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@master
+
+      -  uses: php-actions/composer@master
+
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@master
