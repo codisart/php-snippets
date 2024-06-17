@@ -13,6 +13,12 @@
         <testsuite name="classnames">
             <directory>src/classnames/Tests</directory>
         </testsuite>
+        <testsuite name="time-of-day">
+            <directory>src/time-of-day/Tests</directory>
+        </testsuite>
+        <testsuite name="data-provider">
+            <directory>src/data-provider/Tests</directory>
+        </testsuite>
     </testsuites>
 
     <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
