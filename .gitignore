@@ -1,6 +1,9 @@
 ### MacOs ###
 .DS_Store
 
+### PhpStorm ###
+/.idea
+
 ### Composer ###
 composer.lock
 composer.phar

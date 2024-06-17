@@ -3,7 +3,8 @@
         "files": [ "src/classnames/function.php" ],
         "psr-4": {
             "ClassNames\\": "src/classnames",
-            "MergeCoverage\\": "src/merge-coverage"
+            "MergeCoverage\\": "src/merge-coverage",
+            "TimeOfDay\\": "src/time-of-day"
         }
     },
     "require-dev": {
