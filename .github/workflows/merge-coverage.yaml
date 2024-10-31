@@ -1,0 +1,64 @@
+name: "Merge Coverage"
+
+on: [pull_request]
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          tools: composer
+          coverage: xdebug
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: composer install
+      - run: vendor/bin/phpunit --testsuite unit --coverage-php reports/unit.php
+      - uses: actions/cache/save@v4
+        with:
+          path: reports
+          key: reports-unit-${{ github.run_id }}
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          tools: composer
+          coverage: xdebug
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: composer install
+      - run: vendor/bin/phpunit --testsuite integration --coverage-php reports/integration.php
+      - uses: actions/cache/save@v4
+        with:
+          path: reports
+          key: reports-integration-${{ github.run_id }}
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: [integration, unit]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v4
+        with:
+          path: reports
+          key: reports-unit-${{ github.run_id }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: reports
+          key: reports-integration-${{ github.run_id }}
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          tools: composer
+          coverage: xdebug
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: composer install
+      - run: php bin/merge-coverage.php
+
+

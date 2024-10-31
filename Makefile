@@ -13,11 +13,11 @@ test:
 classnames.test:
 	docker compose exec php vendor/bin/phpunit --testsuite classnames
 
-unit.test:
+unit.test: start
 	docker compose exec php vendor/bin/phpunit --testsuite unit --coverage-php reports/unit.php
 
-integration.test:
+integration.test: start
 	docker compose exec php vendor/bin/phpunit --testsuite integration --coverage-php reports/integration.php
 
-merge-coverage:
+merge-coverage: unit.test integration.test
 	docker compose exec php bin/merge-coverage.php
