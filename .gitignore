@@ -1,6 +1,9 @@
 ### MacOs ###
 .DS_Store
 
+### PhpStorm ###
+/.idea
+
 ### Composer ###
 composer.lock
 composer.phar
@@ -13,3 +16,4 @@ composer.phar
 /reports
 !/reports/.keep
 /coverage
+

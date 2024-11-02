@@ -8,10 +8,11 @@ jobs:
     runs-on: ubuntu-latest
         
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@master
-
-      -  uses: php-actions/composer@master
-
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@master
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: composer install
+      - run: vendor/bin/phpunit
